@@ -39,25 +39,30 @@ class UserService {
 
   async register({ id, password, name }: RegisterParams) {
     try {
-      const user = await db.user.findUnique({
+      const exist = await db.user.findUnique({
         where: {
           id,
         },
       });
 
-      if (user) {
+      if (exist) {
         throw new Error("");
       }
 
       const hash = await bcrypt.hash(password, this.saltRounds);
-
-      return await db.user.create({
+      const user = await db.user.create({
         data: {
           id,
           hash,
           name,
         },
       });
+
+      return {
+        id: user.id,
+        name: user.name,
+        isAllowed: user.isAllowed,
+      };
     } catch (err) {
       console.error(err);
       return err;
