@@ -4,10 +4,12 @@ import UserService from "../../../services/UserService.js";
 const auth: FastifyPluginAsync = async (fastify) => {
   const userService = UserService.getInstance();
 
-  fastify.post("/login", async (req) => {
-    // return userService.login();
-    return "login";
-  });
+  fastify.post<{ Body: { id: string; password: string } }>(
+    "/login",
+    async (req) => {
+      return userService.login(req.body);
+    }
+  );
 
   fastify.post<{ Body: { id: string; password: string; name: string } }>(
     "/register",

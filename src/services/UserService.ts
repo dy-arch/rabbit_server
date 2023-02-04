@@ -15,7 +15,26 @@ class UserService {
   }
 
   async login({ id, password }: LoginParams) {
-    return "login";
+    try {
+      const user = await db.user.findUnique({
+        where: {
+          id,
+        },
+      });
+
+      if (!user) {
+        throw new Error("");
+      }
+
+      await bcrypt.compare(password, user.hash);
+      return {
+        id: user.id,
+        name: user.name,
+        isAllowed: user.isAllowed,
+      };
+    } catch (err) {
+      return err;
+    }
   }
 
   async register({ id, password, name }: RegisterParams) {
