@@ -1,4 +1,9 @@
-import Fastify from "fastify"
-const server = Fastify({})
+import Fastify from "fastify";
+import routes from "./routes/index.js";
+const server = Fastify({
+  logger: true,
+});
 
-server.listen({port: 4000})
+server.register(routes);
+
+server.listen({ port: 4000 });
