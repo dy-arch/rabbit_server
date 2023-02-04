@@ -11,9 +11,9 @@ datasource db {
 }
 
 model User {
-  id String @id
-  hash String
-  name String @unique
-  isAllowed Boolean @default(false)
+  id        String   @id
+  hash      String
+  name      String   @unique
   createdAt DateTime @default(now())
+  isAllowed Boolean  @default(false)
 }
