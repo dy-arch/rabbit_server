@@ -1,7 +1,11 @@
 import Fastify from "fastify";
 import routes from "./routes/index.js";
 const server = Fastify({
-  logger: true,
+  logger: {
+    transport: {
+      target: "pino-pretty",
+    },
+  },
 });
 
 server.register(routes);
