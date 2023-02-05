@@ -7,6 +7,10 @@ const error: Record<ErrorType, ErrorStructure> = {
     status: 401,
     message: "UnAuthorized",
   },
+  AlreadyExists: {
+    status: 409,
+    message: "Already Exists",
+  },
   UnknownError: {
     status: 500,
     message: "Unknown Error",
@@ -24,7 +28,11 @@ class FastifyError extends Error {
 
 export default FastifyError;
 
-type ErrorType = "UnknownError" | "AuthenticError" | "UnAuthorizedError";
+type ErrorType =
+  | "UnknownError"
+  | "AuthenticError"
+  | "UnAuthorizedError"
+  | "AlreadyExists";
 
 type ErrorStructure = {
   status: number;
