@@ -22,7 +22,7 @@ class FastifyError extends Error {
   constructor(name: ErrorType) {
     super(error[name].message);
     this.name = name;
-    this.status = 200;
+    this.status = error[name].status;
   }
 }
 
