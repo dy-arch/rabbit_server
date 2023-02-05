@@ -1,5 +1,6 @@
 import db from "../lib/db.js";
 import bcrypt from "bcrypt";
+import FastifyError from "../lib/FastifyError.js";
 
 class UserService {
   private static instance: UserService;
@@ -23,7 +24,7 @@ class UserService {
       });
 
       if (!user) {
-        throw new Error("");
+        throw new FastifyError("AuthenticError");
       }
 
       await bcrypt.compare(password, user.hash);
@@ -46,7 +47,7 @@ class UserService {
       });
 
       if (exist) {
-        throw new Error("");
+        throw new FastifyError("AlreadyExists");
       }
 
       const hash = await bcrypt.hash(password, this.saltRounds);
