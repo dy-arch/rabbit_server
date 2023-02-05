@@ -8,6 +8,11 @@ const server = Fastify({
   },
 });
 
+server.setErrorHandler((err, req, reply) => {
+  console.error(err);
+  return err;
+});
+
 server.register(routes);
 
 server.listen({ port: 4000 });
